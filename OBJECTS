@@ -1,0 +1,94 @@
+INHERITANCE: We have a constructor caller person, and one of it's instances is going to be John.
+
+  Person
+  -calculateAge() (This is the prototype)
+
+  john
+  -John
+  -1990
+  -teacher
+
+DIFFERENCE BETWEEN PROPERTIES AND METHODS:
+  The basic nutshell of an object is just key-value pairs stored in a Hash(in this case a var). The difference between
+  property and method is that:
+  -PROPERTY: is a value stored in the hash key.
+  -METHOD: is a function stored in the hash key.
+    EXAMPLE:
+      var person = {
+      name: "Jello";
+      sayHello: function(){
+          console.log("hello");
+        }
+      }
+  So in the above example, the "name" var is a property, and the "sayHello" function is the method.
+
+PROTOTYPES AND PROTOTYPE CHAINS:
+  So in the above example, the person constructor has the prototype called calculateAge, and because
+  John is one of the person's instances, he inherits the calculateAge prototype and can therefore call it,
+  and any other object, created by the person constructor would inherit this method as well. So remember,
+  the prototype property of an object, is where we put methods and properties that we want other objects to inherit.
+  REALLY IMPORTANT: The person's prototype is not the prototype of the person itself, but rather it's the prototype
+  of all instances that are created through the person blueprint.
+  MIND BLOWING: The person object itself, is an instance of an even bigger constructor. This is how it all works:
+  Each and every object that we EVER create is an instance of the object constructor, which has a bunch of methods
+  in it's prototype property, and of course each object inherits it's parent object's prototype property methods.
+  PROTOTYPE CHAIN DIGGING DEEPER: The prototype chain is what makes inheritance possible.
+  When we try to access a certain method or property of an object, javascript will first try to find the method
+  on that exact object, but if it can't find it, it will look in the object's prototype, which is the prototype
+  property of it's parent, so it moves up in the prototype chain. If it still can't find it, it will keep going
+  up the chain, until there's no more properties to look at which is null. Null is the final link in the prototype chain.
+  In this case undefined is returned.
+
+PROTOTYPE OVERVIEW
+  -Every Javascript object has a prototype property, which makes inheritance possible.
+  -The prototype property of an object is where we put methods and properties that we
+   want other objects to inherit.
+  -The Constructor's prototype property is NOT the prototype of the Constructor itself.
+   It's the prototype of ALL instances that are created though it;
+  -When a certain method(or property) is called, the search starts in the object's prototype.
+   This continues until the method is found: prototype chain.
+
+//////////////// SYNTAX FOR THE ABOVE LESSONS.
+
+////FUNCTION CONSTRUCTOR
+OBJECT LITERAL.
+  var john = {
+   name: "John",
+   yearOfBirth: 1998,
+   job: "teacher"
+
+  }
+
+  DIFFERENT WAYS OF CREATING OBJECTS:
+
+  FUNCTION CONSTRUCTOR(Possibly the most popular way.): This is a pattern for writing out a blueprint.
+  NOTE: We always use the capital letter to signify that we're writing out a constructor.
+  The parameters for these function constructors will be the variables that we want to set in our object.
+  Now we attach these arguments, to the "this" variables of this function's execution content.
+  REMEMEBER: That the "this" variable is simply an object as well.
+
+  KNOWLEDGE CHECK: So I think since "this" acts as a variable, you're simply giving it the name of the method,
+  and then you're giving it the value of the method on the constructor
+    EXAMPLE:
+      var Person = function(name, yearOfBirth, job){
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+      }
+
+      SO THIS IS THE FUNCTION CONSTRUCTOR.
+
+  INSTANCIATION/ INSTANCE: So now that we have the constructor, we can create a John instance. so here we're going to use the
+  "new" operator which is how we tell js that this is an instance of the target constructor. After the "new"
+  operator you add the name of the constructor(Make sure you include the capital letter.) and then we pass
+  our arguments into the function with the desired values. THIS IS WHAT'S CALLED INSTANCIATION!
+    EXAMPLE:
+      var john = new Person("John", 1898, "teacher");
+
+  "NEW" OPERATOR: So when we use the "new" operator, first, a new empty object is created, then after that, the constructor function
+  is called with the arguments that we specified, and then calling the function creates a new execution context that also has a "this" variable.
+  In a regular function called, the "this" variable points to a global object, but the "new" property makes the constructor point to the newly
+  created, empty object, and all the content in the object is added to the variable, and thus when you call the constructor, it'll actually call t
+  the object inside the newly created variable.
+
+  INHERITANCE: So now we'll add inheritance to our constructor, and we'll begin by in this instance using a calculate age function.
